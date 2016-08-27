@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import dates from './utils/dates';
 
-import TimeSlotGroup from './ScheduleSlotGroup'
+import ScheduleSlotGroup from './ScheduleSlotGroup'
 
 export default class ScheduleColumn extends Component {
   static propTypes = {
