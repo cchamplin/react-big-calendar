@@ -15,7 +15,7 @@ let ScheduleWeek = React.createClass({
 
   render() {
     let { date } = this.props
-    let { start, end } = WeekSchedule.range(date, this.props)
+    let { start, end } = ScheduleWeek.range(date, this.props)
 
     return (
       <ScheduleGrid {...this.props} start={start} end={end} eventOffset={15}/>
