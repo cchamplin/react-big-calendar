@@ -10,6 +10,7 @@ export let navigate = {
 export let views = {
   MONTH: 'month',
   WEEK: 'week',
+  WEEK_SCHEDULE: 'week-schedule',
   WORK: 'workweek',
   DAY: 'day',
   AGENDA: 'agenda'
