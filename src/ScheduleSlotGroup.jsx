@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import TimeSlot from './TimeSlot'
+import ScheduleSlot from './ScheduleSlot'
 import date from './utils/dates.js'
 import localizer from './localizer'
 
@@ -15,7 +15,7 @@ export default class ScheduleSlotGroup extends Component {
 
   renderSlice(slotNumber, content, value) {
 
-    return <TimeSlot key={slotNumber}
+    return <ScheduleSlot key={slotNumber}
                      showLabel={this.props.showLabels && !slotNumber}
                      content={content}
                      culture={this.props.culture}
@@ -25,7 +25,7 @@ export default class ScheduleSlotGroup extends Component {
 
   renderSlices() {
     const ret = []
-    for (let i = 0; i < this.props.slots; i++) {
+    for (let i = 0; i < this.props.slots.length; i++) {
       let slot = this.props.slots[i]
       ret.push(this.renderSlice(slot.key, slot.content, slot.value))
     }
