@@ -5,6 +5,7 @@ import invariant from 'invariant';
   time: 'Time',
   event: 'Event',
   allDay: 'all day',
+  finalSchedule: 'Final Schedule',
   week: 'week',
   day: 'day',
   month: 'month',

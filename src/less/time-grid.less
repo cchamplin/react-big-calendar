@@ -29,6 +29,16 @@
     position: relative;
   }
 
+  .rbc-final-cell {
+    width: 100%;
+    position: relative;
+  }
+
+  .rbc-schedule-cell {
+    width: 100%;
+    position: relative;
+  }
+
   .rbc-row > {
     min-height: 20px;
   }
@@ -95,6 +105,59 @@
 
   > .rbc-day-slot {
     width: 100%
+  }
+
+}
+
+.rbc-schedule-content {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  width: 100%;
+  border-top: 2px solid @calendar-border;
+  overflow-y: auto;
+  position: relative;
+
+  &.rbc-overflowing {
+    border-right: 1px solid @cell-border;
+  }
+
+  .rbc-rtl &.rbc-overflowing {
+    border-right-width: 0;
+    border-left: 1px solid @cell-border;
+  }
+
+  > .rbc-row > * + * {
+    border-left: 1px solid @cell-border;
+  }
+
+  > .rbc-group > .rbc-row > * + * {
+    border-left: 1px solid @cell-border;
+  }
+
+
+  .rbc-rtl & > .rbc-row > * + * {
+    border-left-width: 0;
+    border-right: 1px solid @cell-border;
+  }
+
+  > .rbc-row:first-child {
+    border-bottom: 1px solid  @cell-border;
+  }
+
+  .rbc-gutter-cell {
+    flex: none;
+  }
+
+  > .rbc-gutter-cell + * {
+    width: 100%;
+  }
+
+  .rbc-group {
+    border-top: 2px solid @calendar-border;
+  }
+  .rbc-slot-row {
+    border-top: 1px solid lighten(@cell-border, 10%);
   }
 }
 

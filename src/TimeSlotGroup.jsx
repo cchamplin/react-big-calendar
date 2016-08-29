@@ -23,7 +23,7 @@ export default class TimeSlotGroup extends Component {
   renderSlice(slotNumber, content, value) {
 
     return <TimeSlot key={slotNumber}
-                     showLabel={this.props.showLabels && !slotNumber}
+                     showLabel={this.props.showLabels}
                      content={content}
                      culture={this.props.culture}
                      isNow={this.props.isNow}

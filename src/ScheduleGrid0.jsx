@@ -20,7 +20,7 @@ import { navigate } from './utils/constants';
 import { accessor as get } from './utils/accessors';
 
 import {
-  inRange, eventSegments, scheduledEventSegments, endOfRange
+  inRange, eventSegments, endOfRange
   , eventLevels, sortEvents, segStyle } from './utils/eventLevels';
 
 const MIN_ROWS = 2;
@@ -104,7 +104,7 @@ export default class ScheduleGrid extends Component {
   render() {
     let {
         final, start, end, width
-      , startAccessor, endAccessor } = this.props;
+      , startAccessor, endAccessor, allDayAccessor } = this.props;
 
     width = width || this.state.gutterWidth;
 
@@ -115,12 +115,12 @@ export default class ScheduleGrid extends Component {
     let finalSchedule = [];
 
     final.forEach(period => {
-      if (inRange(period, start, end, this.props)) {
+      if (r(period, start, end, this.props)) {
+        let eStart = get(event, startAccessor)
+          , eEnd = get(event, endAccessor);
           finalSchedule.push(period)
       }
     })
-
-
 
     finalSchedule.sort((a, b) => sortEvents(a, b, this.props))
 
@@ -135,80 +135,46 @@ export default class ScheduleGrid extends Component {
         {
           this.renderHeader(range, segments, width)
         }
-        <div ref='content' className='rbc-schedule-content'>
-
-          {this.props.groups.map((group, i) =>
-              <div key={i} className='rbc-group'>
-            {group.slots.map((slot, i) =>
-          <div key={i} className='rbc-row'>
-            <div
-              className='rbc-label rbc-schedule-gutter'
-              style={{ width }}
-            >
-              { slot.content }
-            </div>
-            <div ref={'slot_' + i} className='rbc-schedule-cell'>
-              <BackgroundCells
-                slots={range.length}
-                container={()=> this.refs['slot_' + i]}
-                selectable={this.props.selectable}
-              />
-            <div className="rbc-slot-row" style={{ zIndex: 1, position: 'relative' }}>
-                { this.renderSchedule(slot.periods) }
-              </div>
-            </div>
-          </div>
-        )}
-          </div>
-        )}
+        <div ref='content' className='rbc-time-content'>
+          <ScheduleColumn
+            {...this.props}
+            showLabels
+            style={{ width }}
+            ref={gutterRef}
+            className='rbc-time-gutter'
+          />
+          {
+            this.renderSchedule(range, rangeEvents, this.props.now)
+          }
         </div>
       </div>
     );
   }
 
-  renderSchedule(periods){
-    let {
-        start, end } = this.props;
-    let schedule = [];
+  renderSchedule(range, events, today){
+    let { min, max, endAccessor, startAccessor, components } = this.props;
 
-    periods.forEach(period => {
-      if (inRange(period, start, end, this.props)) {
-          schedule.push(period)
-      }
-    });
-    if (schedule.length == 0) {
-      return;
-    }
+    return range.map((date, idx) => {
+      let daysEvents = events.filter(
+        event => dates.inRange(date,
+          get(event, startAccessor),
+          get(event, endAccessor), 'day')
+      )
 
-    schedule.sort((a, b) => sortEvents(a, b, this.props))
-
-    let range = dates.range(start, end, 'day')
-
-    let {first, last} = endOfRange(range);
-
-    let segments = schedule.map(period => scheduledEventSegments(period, first, last, this.props))
-
-    let { levels } = eventLevels(segments);
-
-    while (levels.length < MIN_ROWS )
-      levels.push([])
-
-    return levels.map((segs, idx) =>
-      <EventRow
-        eventComponent={this.props.components.event}
-        titleAccessor={this.props.titleAccessor}
-        startAccessor={this.props.startAccessor}
-        endAccessor={this.props.endAccessor}
-        allDayAccessor={this.props.allDayAccessor}
-        eventPropGetter={this.props.eventPropGetter}
-        onSelect={this._selectEvent}
-        slots={this._slots * 24}
-        key={idx}
-        segments={segs}
-        start={first}
-        end={last}
-      />
-    )
+      return (
+        <ScheduleDayColumn
+          {...this.props }
+          min={dates.merge(date, min)}
+          max={dates.merge(date, max)}
+          eventComponent={components.event}
+          className={cn({ 'rbc-now': dates.eq(date, today, 'day') })}
+          style={segStyle(1, this._slots)}
+          key={idx}
+          date={date}
+          events={daysEvents}
+        />
+      )
+    })
   }
 
   renderFinalSchedule(range, levels){

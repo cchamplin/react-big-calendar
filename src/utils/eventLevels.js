@@ -27,6 +27,38 @@ export function eventSegments(event, first, last, { startAccessor, endAccessor }
   }
 }
 
+export function scheduledEventSegments(event, first, last, { startAccessor, endAccessor }) {
+
+  let start = dates.max(get(event, startAccessor), first);
+  let end = get(event, endAccessor);
+  if (end > last) {
+    end = last;
+  }
+
+  let padding = start - first;
+  if (padding > 0) {
+    padding = padding / (1000 * 60 * 60);
+  }
+  //var span = _dates2.default.diff(start, end, 'day');
+
+  //span = Math.min(span, slots);
+  //span = Math.max(span, 1);
+  let span = end - start;
+
+  if (span == 0) {
+    span = 24;
+  } else {
+    span = span / (1000 * 60 * 60);
+  }
+  return {
+    event: event,
+    span: span,
+    left: (padding + 1),
+    right: Math.max(padding + span, 1)
+  };
+}
+
+
 
 export function segStyle(span, slots){
   let per = (span / slots) * 100 + '%';
