@@ -196,6 +196,15 @@ let Calendar = React.createClass({
      */
     titleAccessor: accessor,
 
+
+    /**
+     * Accessor for the event color, used to display event information. Should
+     * resolve to a `color` value.
+     *
+     * @type {(func|string)}
+     */
+    colorAccessor: accessor,
+
     /**
      * Determines whether the event should be considered an "all day" event and ignore time.
      * Must resolve to a `boolean` value.
@@ -341,7 +350,8 @@ let Calendar = React.createClass({
       titleAccessor: 'title',
       allDayAccessor: 'allDay',
       startAccessor: 'start',
-      endAccessor: 'end'
+      endAccessor: 'end',
+      colorAccessor: 'color'
     };
   },
 

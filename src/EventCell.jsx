@@ -8,11 +8,13 @@ let EventCell = React.createClass({
     let {
         className, event, selected, eventPropGetter
       , startAccessor, endAccessor, titleAccessor
+      , colorAccessor
       , slotStart, slotEnd, onSelect, component, ...props } = this.props;
 
     let Component = component;
 
     let title = get(event, titleAccessor)
+      , color = get(event, colorAccessor)
       , end = get(event, endAccessor)
       , start = get(event, startAccessor)
       , isAllDay = get(event, props.allDayAccessor)
@@ -24,7 +26,7 @@ let EventCell = React.createClass({
 
     return (
       <div
-        style={{...props.style, ...style}}
+        style={{...props.style, ...style, backgroundColor: color}}
         className={cn('rbc-event', className, xClassName, {
           'rbc-selected': selected,
           'rbc-event-allday': isAllDay || dates.diff(start, dates.ceil(end, 'day'), 'day') > 1,

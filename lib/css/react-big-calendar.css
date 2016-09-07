@@ -460,6 +460,9 @@ button.rbc-input::-moz-focus-inner {
   width: 100%;
   position: relative;
 }
+.rbc-time-view .rbc-final-cell .rbc-event {
+  min-height: 16px;
+}
 .rbc-time-view .rbc-schedule-cell {
   width: 100%;
   position: relative;
@@ -563,6 +566,12 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-schedule-content > .rbc-gutter-cell + * {
   width: 100%;
+}
+.rbc-schedule-content .rbc-row-segment {
+  padding: 0 0 0 0;
+}
+.rbc-schedule-content .rbc-event {
+  min-height: 16px;
 }
 .rbc-schedule-content .rbc-group {
   border-top: 2px solid #DDD;

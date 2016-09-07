@@ -23,7 +23,7 @@ import {
   inRange, eventSegments, scheduledEventSegments, endOfRange
   , eventLevels, sortEvents, segStyle } from './utils/eventLevels';
 
-const MIN_ROWS = 2;
+const MIN_ROWS = 1;
 
 
 export default class ScheduleGrid extends Component {
@@ -197,6 +197,7 @@ export default class ScheduleGrid extends Component {
       <EventRow
         eventComponent={this.props.components.event}
         titleAccessor={this.props.titleAccessor}
+        colorAccessor={this.props.colorAccessor}
         startAccessor={this.props.startAccessor}
         endAccessor={this.props.endAccessor}
         allDayAccessor={this.props.allDayAccessor}
@@ -221,6 +222,7 @@ export default class ScheduleGrid extends Component {
       <EventRow
         eventComponent={this.props.components.event}
         titleAccessor={this.props.titleAccessor}
+        colorAccessor={this.props.colorAccessor}
         startAccessor={this.props.startAccessor}
         endAccessor={this.props.endAccessor}
         allDayAccessor={this.props.allDayAccessor}

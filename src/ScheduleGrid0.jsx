@@ -26,7 +26,7 @@ import {
 const MIN_ROWS = 2;
 
 
-export default class ScheduleGrid extends Component {
+export default class ScheduleGridOld extends Component {
 
   static propTypes = {
     ...ScheduleDayColumn.propTypes,

@@ -16,6 +16,7 @@ export default {
     selected: PropTypes.array,
     eventPropGetter: PropTypes.func,
     titleAccessor: accessor,
+    colorAccessor: accessor,
     allDayAccessor: accessor,
     startAccessor: accessor,
     endAccessor: accessor,
@@ -36,6 +37,7 @@ export default {
     let {
         eventPropGetter, selected, start, end
       , startAccessor, endAccessor, titleAccessor
+      , colorAccessor
       , allDayAccessor, eventComponent, onSelect } = this.props;
 
     return (
@@ -47,6 +49,7 @@ export default {
         startAccessor={startAccessor}
         endAccessor={endAccessor}
         titleAccessor={titleAccessor}
+        colorAccessor={colorAccessor}
         allDayAccessor={allDayAccessor}
         slotStart={start}
         slotEnd={end}

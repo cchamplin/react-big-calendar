@@ -32,6 +32,9 @@
   .rbc-final-cell {
     width: 100%;
     position: relative;
+    .rbc-event {
+      min-height: 16px;
+    }
   }
 
   .rbc-schedule-cell {
@@ -152,7 +155,12 @@
   > .rbc-gutter-cell + * {
     width: 100%;
   }
-
+  .rbc-row-segment {
+    padding: 0 0 0 0;
+  }
+  .rbc-event {
+    min-height: 16px;
+  }
   .rbc-group {
     border-top: 2px solid @calendar-border;
   }
